@@ -1,8 +1,24 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
+import { ChangeEvent, useState } from 'react'
 
 export function NewNoteCard() {
+
+  const [ shouldShowOnBoarding, setShouldShowOnBoarding ] = useState(true)
+
+  function handleStartEditor() {
+    setShouldShowOnBoarding(false)
+  }
+
+  function handleContentChanged(event: ChangeEvent<HTMLTextAreaElement>) {
+    if(event.target.value === '') {
+      setShouldShowOnBoarding(true)
+    }
+  }
+
+
   return(
+    
     <Dialog.Root>
       <Dialog.Trigger className="flex flex-col rounded-md bg-slate-700 text-left p-5 gap-3 outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
         <span className="text-sm font-medium text-slate-200">
@@ -24,9 +40,20 @@ export function NewNoteCard() {
                 <span className="text-sm font-medium text-slate-300">
                   Adicionar uma nota 
                 </span>
-                <p className="text-sm leading-6 text-slate-400">
-                  Comece <button className='font-medium text-lime-400 hover:underline'>gravando uma nota</button> em áudio ou se preferir <button className='font-medium text-lime-400 hover:underline'>utilize apenas texto</button>.
+                
+                {shouldShowOnBoarding ? (
+                  <p className="text-sm leading-6 text-slate-400">
+                  Comece <button className='font-medium text-lime-400 hover:underline'>gravando uma nota</button> em áudio ou se preferir <button onClick={handleStartEditor} className='font-medium text-lime-400 hover:underline'>utilize apenas texto</button>.
                 </p>
+                ) : (
+                  <p>
+                    <textarea 
+                    autoFocus 
+                    className='text-sm leading-6 text-slate-480 bg-transparent resize-none flex-1 outline-none' 
+                    onChange={handleContentChanged}
+                     />
+                  </p>
+                )}
 
               </div>
 
