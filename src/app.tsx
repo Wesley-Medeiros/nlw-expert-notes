@@ -48,7 +48,7 @@ const filteredNots = search !== ''
   : notes
 
   return (
-    <div className="mx-auto max-w-6xl my-12 space-y-6">
+    <div className="mx-auto max-w-6xl my-12 space-y-6 px-5">
       <img src={Logo} alt="nlw Expert" />
       <form className="w-full">
         <input
@@ -61,7 +61,7 @@ const filteredNots = search !== ''
 
         <div className="h-px bg-slate-700"/>
 
-        <div className="grid grid-cols-3 gap-6 auto-rows-[250px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[250px]">
           <NewNoteCard onNoteCreated={onNoteCreated} />
           {filteredNots.map(note => {
             return <NoteCard key={note.id} note={note} />
